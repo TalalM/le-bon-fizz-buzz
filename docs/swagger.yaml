@@ -1,0 +1,104 @@
+basePath: /v1
+definitions:
+  model.Query:
+    properties:
+      count:
+        type: integer
+      int1:
+        type: integer
+      int2:
+        type: integer
+      limit:
+        type: integer
+      str1:
+        type: string
+      str2:
+        type: string
+    type: object
+  transport.APIResponse:
+    properties:
+      data: {}
+      error:
+        type: string
+      success:
+        type: boolean
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: le-bon-fizz-buzz-7dca32904045.herokuapp.com
+info:
+  contact:
+    email: contact@lebonfizzbuzz.com
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a fizz buzz server for Le Bon Coin.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Le Bon Fizz Buzz API
+  version: "1.0"
+paths:
+  /fizz-buzz/{int1}/{int2}/{limit}/{str1}/{str2}:
+    get:
+      consumes:
+      - application/json
+      description: Replaces numbers with fizz and buzz (or any other custom string)
+      parameters:
+      - default: 3
+        description: First divider
+        in: path
+        name: int1
+        required: true
+        type: integer
+      - default: 5
+        description: Second divider
+        in: path
+        name: int2
+        required: true
+        type: integer
+      - default: 100
+        description: Limit to go to
+        in: path
+        name: limit
+        required: true
+        type: integer
+      - default: '"fizz"'
+        description: String that replaces number dividable by the first divider
+        in: path
+        name: str1
+        required: true
+        type: string
+      - default: '"buzz"'
+        description: String that replaces number dividable by the second divider
+        in: path
+        name: str2
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Query'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/transport.APIResponse'
+      summary: Fizz buzzes numbers
+  /most-requested-query:
+    get:
+      consumes:
+      - application/json
+      description: Returns the most requested query of all time
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Query'
+      summary: Get most requested query
+swagger: "2.0"
